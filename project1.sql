@@ -49,22 +49,30 @@ where sale_date ="05-11-2022";
 select  * from retail_sales 
 where category="clothing" and date_format(sale_date,'%Y-%m')='2022-11'
 and quantiy >=3;
+
 -- Q3 write a sql query to caluculate the total sales(total_sale)for each category.
 
 select category,sum(total_sale) ,count(*) as total_count from retail_sales
 group by category ;
+
 -- Q4 write a sql query to write the average age of customers who purchased items from the 'beauty 'category.
+
 select category, avg(age) from retail_sales 
 where category="beauty";
+
 -- Q5 write a sql  query to find all transactions where the total_sale is greater than 1000.
 
 select transactions_id,total_sale from retail_sales 
 where total_sale > 1000;
+
 -- Q6 write a sql query to find the total number of transactions (transaction_id)made by each gender in each category.
+
 select category,gender,count(*) as tr_id
 from retail_sales
  group by 1,2 order by 1;
+
 -- Q7 write a sql query to calculate the average sale for each month. find out best selling month in each year. 
+
 select * from(
 select avg(total_sale),
 extract(year from  sale_date) as year ,
@@ -77,12 +85,14 @@ group by 2,3
 where r_ank=1;
 
 -- Q8 write a sql query to find the top 5 customers based on the highest total_sales. 
+
 select customer_id,sum(total_sale)
 from retail_sales group by customer_id 
 order by sum(total_sale) desc
 limit 5;
 
 -- Q9 write a sql query to find the number of unique customers who purchased items for each category. 
+
 select category,count(distinct customer_id) 
  from  retail_sales 
  group by category;
