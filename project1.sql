@@ -7,7 +7,7 @@ create table RETAIL_SALES(
 						customer_id INT,
 						gender varchar(25),
 						age	INT,
-                        category varchar(25),
+                                                category varchar(25),
 						quantiy INT,
 						price_per_unit FLOAT,
 						cogs FLOAT,
@@ -17,51 +17,15 @@ create table RETAIL_SALES(
 
 
 select * from RETAIL_SALES
-WHERE TRANSACTIONS_ID IS NULL 
-OR
-SALE_DATE IS NULL
-OR 
-SALE_TIME IS NULL
-OR 
-customer_id IS NULL
-OR 
-GENDER IS NULL
-OR 
-AGE IS NULL 
-OR 
-CATEGORY IS NULL 
-OR 
-QUANTIY IS NULL 
-OR 
-PRICE_PER_UNIT IS NULL
-OR 
-COGS IS NULL 
-or
+WHERE
+TRANSACTIONS_ID IS NULL OR SALE_DATE IS NULL OR SALE_TIME IS NULL OR customer_id IS NULL OR GENDER IS NULL OR AGE IS NULL OR CATEGORY IS NULL OR QUANTIY IS NULL OR PRICE_PER_UNIT IS NULL OR COGS IS NULL or
 TOTAL_SALE IS NULL;
 
 #DATA CLEANING
 
 DELETE FROM RETAIL_SALES 
-WHERE TRANSACTIONS_ID IS NULL 
-OR
-SALE_DATE IS NULL
-OR 
-SALE_TIME IS NULL
-OR 
-customer_id IS NULL
-OR 
-GENDER IS NULL
-OR 
-AGE IS NULL 
-OR 
-CATEGORY IS NULL 
-OR 
-QUANTIY IS NULL 
-OR 
-PRICE_PER_UNIT IS NULL
-OR 
-COGS IS NULL 
-or
+WHERE 
+TRANSACTIONS_ID IS NULL ORSALE_DATE IS NULL OR SALE_TIME IS NULL OR customer_id IS NULL OR GENDER IS NULL OR AGE IS NULL OR CATEGORY IS NULL OR QUANTIY IS NULL OR PRICE_PER_UNIT IS NULL OR COGS IS NULL or
 TOTAL_SALE IS NULL;
 
 SELECT COUNT(*) FROM RETAIL_SALES;
@@ -125,19 +89,19 @@ select category,count(distinct customer_id)
 
 -- Q10 write a aql query to create each shift and number of orders (example morning <=12,afternoon between 12& 17,evening >17).
 
-	with hourly_sale 
-	as (
-	select *,
-	case 
-	when extract(hour from sale_time) <12 then "Morning"
-	when extract(hour from sale_time) between 12 and 17 then "Aftrnoon"
-	else "Evening"
-	end as shift
-	from retail_sales
-	) 
-	select shift ,count(*) as total_order
-	from hourly_sale 
-	group by shift ;
+with hourly_sale 
+as (
+select *,
+case 
+when extract(hour from sale_time) <12 then "Morning"
+when extract(hour from sale_time) between 12 and 17 then "Aftrnoon"
+else "Evening"
+end as shift
+from retail_sales
+) 
+select shift ,count(*) as total_order
+from hourly_sale 
+group by shift ;
 
  -- End of project 
  
